@@ -19,6 +19,21 @@
         <label>Password:</label><br>
         <input type="password" name="password"><br><br>
 
+        <label>Re-enter Password:</label>
+        <input type="password" name="repass"><br><br>
+
+        <label>MSSV:</label>
+        <input type="text" name="mssv"><br><br>
+
+        <label>Lớp môn học:</label>
+        <input type="text" name="lop"><br><br>
+
+        <label>Giới tính:</label>
+        <select name="gioitinh">
+            <option value="nam">Nam</option>
+            <option value="nu">Nữ</option>
+        </select><br><br>
+
         <button type="submit">Register</button>
     </form>
 
