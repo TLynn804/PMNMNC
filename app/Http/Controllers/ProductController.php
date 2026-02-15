@@ -38,17 +38,7 @@ class ProductController extends Controller
 
     // }
 
-    public function login(){
-        return view('login');
-    }
-    public function checkLogin(Request $request){
-        if ($request->input('username') == 'thuy' && $request->input('password') == '12345') {
-        
-            return redirect('/');
-        } else {
-            return "Đăng nhập thất bại.";
-        }
-    }
+    
     
     public function register()
     {
@@ -67,25 +57,22 @@ class ProductController extends Controller
             $username === 'thuy' &&
             $password === '12345' &&
             $repass === '12345' &&
-            $mssv === '0217767' 
-            
-
+            $mssv === '0217767'  
         ) {
             return redirect()->route('home');
-        }
-
+     }
         return back()->with('error', 'Đăng ký thất bại');
     }
 
-
+//index
     public function index()
     {
         $products = \App\Models\Product::all();
-        return view('product.index', ['products' => $products]);
+        return view('admin.product.index', ['products' => $products]);
     }
     public function create()
     {
-        return view('product.add');
+        return view('admin.product.add');
     }
    public function store(Request $request){
         $products = new Product;
@@ -97,7 +84,7 @@ class ProductController extends Controller
     }
     public function edit(string $id){
         $product = Product::find($id);
-        return view('product.edit', ['product' => $product]);
+        return view('admin.product.edit', ['product' => $product]);
     }
 
 

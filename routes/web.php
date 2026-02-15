@@ -6,17 +6,20 @@ use App\Http\Middleware\CheckTimeAccess;
 use App\Http\Comtroller\TestController;
 use App\Http\Middleware\CheckAge;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CategoryController;
+
 
 // "/" : trả về view home
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
 //Đăng Nhập
 Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::post('/login', [ProductController::class, 'checkLogin']);
+Route::post('/login', [AuthController::class, 'checkLogin']);
 
 
 
@@ -92,3 +95,19 @@ Route::get('/clear', function () {
     session()->flush();
     return 'Session cleared';
 });
+
+//2/2/2626
+
+
+
+Route::get('/admin',function(){
+    return view('layout.admin');
+});
+
+//category
+Route::get('/category', [CategoryController::class,'index']);
+Route::get('/category/create', [CategoryController::class,'create']);
+Route::post('/category/store', [CategoryController::class,'store']);
+Route::get('/category/edit/{id}', [CategoryController::class,'edit']);
+Route::post('/category/update/{id}', [CategoryController::class,'update']);
+Route::get('/category/delete/{id}', [CategoryController::class,'destroy']);
