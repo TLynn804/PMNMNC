@@ -25,7 +25,7 @@ Route::post('/login', [AuthController::class, 'checkLogin']);
 
 // GOM NHÓM "/product"
 Route::prefix('product')
-->middleware(CheckAge::class)
+//->middleware(CheckAge::class)
 //->middleware([CheckTimeAccess::class])
 ->group(function () {
     Route::controller(ProductController::class)-> group(function(){
@@ -34,6 +34,8 @@ Route::prefix('product')
         Route::get('/detail/{id?}','getDetail');
         Route::post('/store','store'); 
         Route::get('/edit/{id}', 'edit');
+        Route::post('/update/{id}', 'update');
+        Route::get('/delete/{id}', 'destroy');
     }); 
     
 });

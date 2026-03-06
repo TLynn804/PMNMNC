@@ -1,22 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Thêm sản phẩm</title>
-</head>
-<body>
-    <h1>Form thêm sản phẩm</h1>
+@extends('layout.admin')
+@section('content')
+<h2>Thêm sản phẩm</h2>
 
-    <form>
-        <label>Tên sản phẩm:</label><br>
-        <input type="text"><br><br>
+<form method="post" action="/product/store">
+@csrf
 
-        <label>Giá:</label><br>
-        <input type="number"><br><br>
+Tên:
+<input type="text" name="name"><br><br>
 
-        
-        <button type="submit">Lưu</button>
-        <br><br>
-        <a href="{{ route('product.index') }}">Danh sách sản phẩm</a>
-    </form>
-</body>
-</html>
+Danh mục:
+<select name="category_id">
+
+<option value="">--Chọn--</option>
+
+@foreach($categories as $c)
+<option value="{{$c->id}}">
+{{$c->name}}
+</option>
+@endforeach
+
+</select>
+
+<br><br>
+
+Giá:
+<input type="number" name="price"><br><br>
+
+Giá sale:
+<input type="number" name="sale_price"><br><br>
+
+Stock:
+<input type="number" name="stock"><br><br>
+
+Mô tả:
+<textarea name="description"></textarea>
+
+<br><br>
+
+<button type="submit">Lưu</button>
+
+</form>
+
+@endsection

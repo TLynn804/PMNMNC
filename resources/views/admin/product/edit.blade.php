@@ -1,22 +1,36 @@
-<!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Add Product</title></head>
-<body>
-  <h1>PRODUCT EDIT</h1>
+<h2>Sửa sản phẩm</h2>
 
-  <form action ="/product/edit/{{ $product->id }}" method="POST">
-    @csrf
-    <label>Tên sản phẩm:</label>
-    <input type="text" name="name" placeholder="Nhập tên..." value = "{{ $product->name }}" />
-    <br><br>
-    <label>Giá:</label>
-    <input type="number" name="price" placeholder="Nhập giá..." value = "{{ $product->price }}" />
-    <label>Số lượng:</label>
-    <input type="number" name="stock" placeholder="Nhập số lượng..." value = "{{ $product->stock }}" />
-    <br><br>
-    <button type="submit">Cập nhật</button>
-  </form>
+<form method="post" action="/product/update/{{$product->id}}">
+@csrf
 
-  <br>
-</body>
-</html>
+Tên:
+<input type="text" name="name" value="{{$product->name}}"><br><br>
+
+Danh mục:
+
+<select name="category_id">
+
+@foreach($categories as $c)
+
+<option value="{{$c->id}}"
+@if($c->id == $product->category_id) selected @endif>
+
+{{$c->name}}
+
+</option>
+
+@endforeach
+
+</select>
+
+<br><br>
+
+Giá:
+<input type="number" name="price" value="{{$product->price}}"><br><br>
+
+Stock:
+<input type="number" name="stock" value="{{$product->stock}}"><br><br>
+
+<button type="submit">Update</button>
+
+</form>

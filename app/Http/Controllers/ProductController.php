@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Product;
+use App\Models\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -64,28 +66,28 @@ class ProductController extends Controller
         return back()->with('error', 'Đăng ký thất bại');
     }
 
-//index
-    public function index()
-    {
-        $products = \App\Models\Product::all();
-        return view('admin.product.index', ['products' => $products]);
-    }
-    public function create()
-    {
-        return view('admin.product.add');
-    }
-   public function store(Request $request){
-        $products = new Product;
-        $products->name = $request->input('name');
-        $products->price = $request->input('price');
-        $products->stock = $request->input('stock');
-        $products->save();
-        return redirect('/product');
-    }
-    public function edit(string $id){
-        $product = Product::find($id);
-        return view('admin.product.edit', ['product' => $product]);
-    }
+// //index
+//     public function index()
+//     {
+//         $products = \App\Models\Product::all();
+//         return view('admin.product.index', ['products' => $products]);
+//     }
+//     public function create()
+//     {
+//         return view('admin.product.add');
+//     }
+//    public function store(Request $request){
+//         $products = new Product;
+//         $products->name = $request->input('name');
+//         $products->price = $request->input('price');
+//         $products->stock = $request->input('stock');
+//         $products->save();
+//         return redirect('/product');
+//     }
+//     public function edit(string $id){
+//         $product = Product::find($id);
+//         return view('admin.product.edit', ['product' => $product]);
+//     }
 
 
 //check age
@@ -104,5 +106,60 @@ class ProductController extends Controller
 
         return redirect('/product');
     }
+//thực hành Quản lý sản phẩm
+    public function index()
+    {
+        $products = Product::where('is_delete',0)->get();
+        return view('admin.product.index',compact('products'));
+    }
+
+    public function create()
+    {
+        $categories = Category::where('is_delete',0)->get();
+        return view('admin.product.add',compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'=>'required',
+            'price'=>'required|numeric|min:0',
+            'sale_price'=>'nullable|numeric|min:0',
+            'stock'=>'required|integer|min:0'
+        ]);
+
+        Product::create($request->all());
+
+        return redirect('/product')->with('success','Thêm thành công');
+    }
+
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        $categories = Category::all();
+
+        return view('admin.product.edit',compact('product','categories'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $product = Product::find($id);
+
+        $product->update($request->all());
+
+        return redirect('/product')->with('success','Cập nhật thành công');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        $product->is_delete = 1;
+        $product->save();
+
+        return redirect('/product')->with('success','Đã xóa');
+    }
 }
+
+
+
 

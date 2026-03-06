@@ -1,3 +1,5 @@
+@extends('layout.admin')
+@section('content')
 <h2>Thêm danh mục</h2>
 
 <form method="post" action="/category/store">
@@ -22,3 +24,5 @@ Active:
 
 <button type="submit">Lưu</button>
 </form>
+
+@endsection

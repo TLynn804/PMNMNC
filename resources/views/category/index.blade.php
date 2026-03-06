@@ -1,30 +1,36 @@
-<h2>Quản lý danh mục</h2>
+@extends('layout.admin')
+@section('content')    
+    <h2>Quản lý danh mục</h2>
 
-<a href="/category/create">+ Thêm mới</a>
+    <a href="/category/create">+ Thêm mới</a><br><br>
 
-@if(session('success'))
-<p style="color:green">{{session('success')}}</p>
-@endif
+    @if(session('success'))
+    <p style="color:green">{{session('success')}}</p>
+    @endif
 
-<table border="1" cellpadding="10">
-<tr>
-    <th>ID</th>
-    <th>Tên</th>
-    <th>Parent</th>
-    <th>Active</th>
-    <th>Action</th>
-</tr>
+    <table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Parent</th>
+        <th>Active</th>
+        <th>Action</th>
+    </tr>
 
-@foreach($categories as $c)
-<tr>
-    <td>{{$c->id}}</td>
-    <td>{{$c->name}}</td>
-    <td>{{$c->parent_id}}</td>
-    <td>{{$c->is_active}}</td>
-    <td>
-        <a href="/category/edit/{{$c->id}}">Edit</a> |
-        <a href="/category/delete/{{$c->id}}" onclick="return confirm('Xóa?')">Delete</a>
-    </td>
-</tr>
-@endforeach
-</table>
+    @foreach($categories as $c)
+    <tr>
+        <td>{{$c->id}}</td>
+        <td>{{$c->name}}</td>
+        <td>{{$c->parent_id}}</td>
+        <td>{{$c->is_active}}</td>
+        <td>
+            <a href="/category/edit/{{$c->id}}">Edit</a> |
+            <a href="/category/delete/{{$c->id}}" onclick="return confirm('Xóa?')">Delete</a>
+        </td>
+    </tr>
+    @endforeach
+    </table> 
+    
+    <br><br>
+    <a href="/product">+ Trang admin</a>
+@endsection
